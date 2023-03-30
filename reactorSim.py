@@ -1,53 +1,39 @@
 # =========================================================================================================== #
 # - Author :     Piotr T. Zaniewicz                                                                           #
 # - Date   :     02/03/2023                                                                                   #
+#                                                                                                             #
 # - Description: - This script is used to optimise the length of a reactor to maximise the conversion         #
-#                  of N2 to NH3 quickly and efficiently across a packed bed reactor.                          #
+#                  of N2 to NH3 across a packed bed reactor.                                                  #
 #                - The script is used to generate the data for the ammonia synthesis reactor section of       #
 #                  the design project report.                                                                 #
+#                - The function main() is used to run the reactor simulation.                                 #
+#                - The function conversion_pressureR1() is used to generate the data for the conversion       #
+#                  of N2 to NH3 across both beds at varying pressures as defined in variable pressurelist()   #
+#                                                                                                             #
 # =========================================================================================================== #
 #                                                                                                             #
 # =====================================   I N F O R M A T I O N   =========================================== #
-#                                                                                                             #
 # - This program calculates the conversion of N2 to NH3 across a packed bed reactor.                          #
-#                                                                                                             #
 # - The program uses the following assumptions:                                                               #
-#                                               1.  The reactor is adiabatic                                  #
-#                                               2.  The reactor is isobaric                                   #
-#                                                                                                             #
-# - After choosing length of bed, plug resulting length into variable 'BedLengthcalc' in                      #
-#   'ReactorInputTempConversionOptimisation_1,py' on line 27 and run programme to calculate the optimal       #
-#   inlet temperature for the reactor at the chosen length that ensures the highest conversion of N2          #
-#   to NH3 whilst remaining below the critical temperature limit of the catalyst.                             #
-#                                                                                                             #
-# - The optimal inlet temperature is then used to replace the variable 'incomingTemp' in the                  #
-#   'Reactor ConversionAcrossPackedBed_1.py' script ( here ) on line 32.                                      #
-#                                                                                                             #
-# - The script will then calculate the conversion of N2 to NH3 across the reactor at the chosen length        #
-#   and the optimal inlet temperature to ensure optimal conversion of N2 to NH3.                              #
-# - The plotted results should now be saved as this will be used in the report as the basis for the           #
-#   reactor design section.                                                                                   #
-# =========================================================================================================== #
+#   - The reactor is isothermal                                                                               #
+#   - The reactor is isobaric                                                                                 #
 # =========================================================================================================== #
 # ==================================   I N P U T   V A R I A B L E S   ====================================== #
 # ----------------------------------------- Initial Conditions ---------------------------------------------- #
-upperTempLimit = 803.15               # Max K, cannot exceed (catalyst max temp)
-constantPressure = 225               # atm (assumed constatn as pressure drop across reactor is negligible
-#                                   # and hence it's effects are ignored in this model)
-pressurelist = [150, 175, 200, 225, 250]
-
+upperTempLimit = 803.15               # Max K, cannot exceed (catalyst max temp)                              #
+constantPressure = 225                # atm (assumed constatn as pressure drop across reactor is negligible   #
+#                                     # and hence it's effects are ignored in this model)                     #
+pressurelist = [150, 175, 200, 225, 250]                                                                      #
 # ------------------------------------------- Reactor Parameters -------------------------------------------- #
-StepSize = 0.001               # m
-bed1 = 2.10
-bed2 = 5.35
-chosenLength1 = int(bed1 / StepSize)               # m (chosen length of reactor bed 1)
-chosenLength2 = int(bed2 / StepSize)               # m (chosen length of reactor bed 2)
-
-MW_H2 = 2.016
-MW_N2 = 28.0134
-MW_NH3 = 17.0305
-MW_Ar = 39.948
-
+StepSize = 0.001                                   # m                                                        #
+bed1 = 2.10                                                                                                   #
+bed2 = 5.35                                                                                                   #
+chosenLength1 = int(bed1 / StepSize)               # m (chosen length of reactor bed 1)                       #
+chosenLength2 = int(bed2 / StepSize)               # m (chosen length of reactor bed 2)                       #
+MW_H2 = 2.016                                                                                                 #
+MW_N2 = 28.0134                                                                                               #
+MW_NH3 = 17.0305                                                                                              #
+MW_Ar = 39.948                                                                                                #     
 # =========================================================================================================== #
 # =========================================================================================================== #
 # ===================================   I M P O R T   L I B R A R I E S   =================================== #
@@ -56,18 +42,17 @@ from reactorCalcs_1 import Fn2, ReactorUpdates
 import matplotlib.pyplot as plt
 import os
 import pathlib
-
 storagePath = os.path.join(pathlib.Path(__file__).parent.absolute(), "Figures")
 import matplotlib.backends.backend_pdf
 import csv
 import dataclasses
+# =========================================================================================================== #
 
 bed1conversion = 0.14296               # conversion of bed 1 -
 bed1feed = 1041.55
 
 R2FN2 = 248.153 * (1 - bed1conversion)
 R2F = bed1feed - 2 * Fn2 * bed1conversion
-
 
 @dataclasses.dataclass
 class ReactorConfig:
@@ -98,7 +83,7 @@ R1Config = ReactorConfig(StepSize=0.001,
                          baseLength=2.10)
 
 R2Config = ReactorConfig(StepSize=0.001,
-                         incomingTemp=717,
+                         incomingTemp=692,
                          pressure=225,
                          BedLengthcalc=10,
                          initialMoleFractionH2=0.656696,
@@ -369,7 +354,6 @@ def main():
     print("---------------------------------------------------------------------")
 
     # save results to csv file
-    import csv
     with open(
             'AmmoniaReactormodel.csv',
             'w',
@@ -441,6 +425,7 @@ def main():
     ax2.set_xlabel("Length (m)")
     ax.set_ylabel("Temperature (K)", color="blue")
     ax2.set_ylabel("Conversion", color="green", rotation=270, labelpad=15)
+
 
     # --------------------- plot rate of reaction ---------------------#
     fig2, ax = plt.subplots()
