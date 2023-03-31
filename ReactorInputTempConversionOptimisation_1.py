@@ -4,23 +4,27 @@
 # - Description: - This script is used to optimise the inlet temperature of a reactor to maximise the         #
 #                  conversion of N2 to NH3.                                                                   #
 #                - The script is used to generate the data for the ammonia synthesis reactor section of       #
-#                  the design project report.                                                                 #
+#                  the design project report for bed 2.                                                       #
 # =========================================================================================================== #
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
+# - The script needs to be repeated iteratively simultaneously with Aspen to find the resultant               #
+#   steady-state stream compositions and resultant operating conditions                                       #
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
 # --------------------------------------   I N S T R U C T I O N S   ---------------------------------------- #
 # - Input temp should not exceed APPROX 755K                                                                  #
 # - Value for BedLengthcalc is the bed length of the reactor in the design project report                     #
 # - You should adjust this value to match the bed length of the reactor you are using                         #
-#   determined in the ReactorConversionAcrossBed_1.py script                                                  #
+#   determined in the reactorSim.py script                                                                    #
 # - Running the script will calculate the optimal inlet temperature for the reactor                           #
 #   to maximise the conversion of N2 to NH3.                                                                  #
 # - The script will also plot the final conversion at each inlet temperature in the range specified           #
-#   in the PlotTempRange variable.                                                                            # 
+#   in the PlotTempRange variable.                                                                            #
 # - A second plot will be generated showing the final mole composition of the reactor at each inlet           #
 #   temperature in the range specified in the PlotTempRange variable.                                         #
-# - The script will also print to console the:     - optimal inlet temperature                                #       
+# - The script will also print to console the:     - optimal inlet temperature                                #
 #                                                  - resulting final conversion                               #
 #                                                  - & resultant end mole composition                         #
-# - The value of 2.10m is the bed length of bed 1 in the design project report                                #
+# - The value of 2.10m is the bed length of bed 2 in the design project report                                #
 # =========================================================================================================== #
 # =========================================================================================================== #
 # ==================================   I N P U T   V A R I A B L E S   ====================================== #
