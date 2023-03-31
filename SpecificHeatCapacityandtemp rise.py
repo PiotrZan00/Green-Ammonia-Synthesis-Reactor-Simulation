@@ -1,3 +1,5 @@
+# Author:  Piotr T. Zaniewicz
+# Date:    12/03/2023
 # Plot Heat Capacities of components of the system
 
 import numpy as np
@@ -34,14 +36,9 @@ molecularWeightAr = 39.948
 
 molecularWeight = molecularWeightH2 * initialMoleFractionH2 + molecularWeightN2 * initialMoleFractionN2 + molecularWeightNH3 * initialMoleFractionNH3 + molecularWeightAr * initialMoleFractionAr # g/mol
 
-
-# Q = m * Cp * deltaT
-
 # Calculate the heat capacity of each component of the system
 temp = T1
-
 while temp <= T2 :
-
     HeatCapacityH2 = (
         #                 # specific_heat_hydrogen * yH2
         (
@@ -53,7 +50,6 @@ while temp <= T2 :
                 - 2.079e-10 * temp**3
             )
         ))
-
 
     HeatCapacityN2 = (
         #        # + specific_heat_nitrogen * yN2
@@ -67,14 +63,12 @@ while temp <= T2 :
             )
         ))
 
-
     HeatCapacityAr = (
         #        # + specific_heat_argon * yAr
             + (4.9675
                 ) * 4.184
         )
-
-
+    
     HeatCapacityNH3 = (
         # + specific_heat_ammonia * yNH3
         + (4.184 *
@@ -107,7 +101,6 @@ print("The heat transfer rate per mole is:   ", AverageHeatCapacity * (T2-T1), "
 print("The heat transfer rate per unit mass is:    ", AverageHeatCapacity * (T2-T1) / molecularWeight, "kJ/kg") # on a per unit mass basis
 print("Q, The heat transfer rate is:    ", AverageHeatCapacity * (T2-T1) * FeedFlowRate / molecularWeight, "kJ/S") # on a per unit mass basis
 print("The Duty of the system is:    ", (AverageHeatCapacity * (T2-T1) * FeedFlowRate / molecularWeight) /1e3, "MW") # on a per unit mass basis
-
 
 #Plot the heat capacities of the components of the system
 fig1, ax1 = plt.subplots()
