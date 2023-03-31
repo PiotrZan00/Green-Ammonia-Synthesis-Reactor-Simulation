@@ -16,7 +16,6 @@ E = 1.7056e5        # activation energy               - Activation energy for am
 R = 8.314           # Universal Gas Constant:         - R = 8.314 J/mol-K                                     #
 alpha = 0.5         # Temkin parameter:               - can range from: 0.5 - 0.75                            #
 #                                                       (0.5 is most common and is used in this calculation)  #
-#                                                                                                             #
 # ==================================   I N P U T   V A R I A B L E S   ====================================== #
 diameter_internal = 0.55 # internal diameter of packed bed - m                                                #
 A = np.pi * (diameter_internal / 2) ** 2            # cross-sectional area of packed bed    - m^2                        #
