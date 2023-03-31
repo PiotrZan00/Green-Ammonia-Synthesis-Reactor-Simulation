@@ -1,37 +1,25 @@
 # =========================================================================================================== #
 # - Author :     Piotr T. Zaniewicz                                                                           #
-# - Date   :     02/03/2023                                                                                   #
-#                                                                                                             #                    
+# - Date   :     31/03/2023                                                                                   #
 # - Description: - This script is used to optimise the inlet temperature of a reactor to maximise the         #
 #                  conversion of N2 to NH3.                                                                   #
 #                - The script is used to generate the data for the ammonia synthesis reactor section of       #
 #                  the design project report.                                                                 #
 # =========================================================================================================== #
-#                                                                                                             #
 # --------------------------------------   I N S T R U C T I O N S   ---------------------------------------- #
-#                                                                                                             #
-# - Input temp should not exceed 755K as this will cause the equilibrium constant to be negative              #
-#   and the results are not valid for negative equilibrium constants                                          #
-#                                                                                                             #
+# - Input temp should not exceed APPROX 755K                                                                  #
 # - Value for BedLengthcalc is the bed length of the reactor in the design project report                     #
-#                                                                                                             #
-# - You should adjust thus value to match the bed length of the reactor you are using                         #
-# which was determined in the ReactorConversionAcrossBed_1.py script                                          #
-#                                                                                                             #
+# - You should adjust this value to match the bed length of the reactor you are using                         #
+#   determined in the ReactorConversionAcrossBed_1.py script                                                  #
 # - Running the script will calculate the optimal inlet temperature for the reactor                           #
 #   to maximise the conversion of N2 to NH3.                                                                  #
-#                                                                                                             #
 # - The script will also plot the final conversion at each inlet temperature in the range specified           #
 #   in the PlotTempRange variable.                                                                            # 
-#                                                                                                             #
 # - A second plot will be generated showing the final mole composition of the reactor at each inlet           #
 #   temperature in the range specified in the PlotTempRange variable.                                         #
-#                                                                                                             #
-# - The script will also print the:     - optimal inlet temperature                                           #       
-#                                       - resulting final conversion                                          #
-#                                       - & resultant end mole composition                                    #
-#   to the console.                                                                                           #
-#                                                                                                             #
+# - The script will also print to console the:     - optimal inlet temperature                                #       
+#                                                  - resulting final conversion                               #
+#                                                  - & resultant end mole composition                         #
 # - The value of 3.15m is the bed length of bed 1 in the design project report                                #
 # =========================================================================================================== #
 # =========================================================================================================== #
@@ -39,18 +27,15 @@
 # ----------------------------------------- Initial Conditions ---------------------------------------------- #
 upperTempLimit = 803.15                 # Max K, cannot exceed (catalyst max temp)
 constantPressure = 225                  # atm
-
 # ---------------------------------------- Initial Mole Fractions ------------------------------------------- #
 initialMoleFractionH2 = 0.714089
 initialMoleFractionN2 = 0.238253
 initialMoleFractionNH3 = 0.0213228
 initialMoleFractionAr = 0.0262431
-
 # -------------------------------------------- Temp Range Plot -----------------------------------------------#
 PlotTempRange = [550, 740]              # [start, end] K (MUST BE INTEGER VALUE)
-BedLengthcalc = 2.1                   # m
+BedLengthcalc = 2.1                     # m
 StepSize_dL = 0.001                     # m
-
 # =========================================================================================================== #
 # =========================================================================================================== #
 # ===================================   I M P O R T   L I B R A R I E S   =================================== #
@@ -62,7 +47,6 @@ import pathlib
 storagePath = os.path.join(pathlib.Path(__file__).parent.absolute(), "Figures")
 import matplotlib.backends.backend_pdf
 # =========================================================================================================== #
-
 # =============================================   C L A S S E S   =========================================== #
 # ===================================   R E A C T O R   S E Q U E N C E   =================================== #
 class Reactor(ReactorUpdates):
