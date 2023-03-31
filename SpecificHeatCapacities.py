@@ -34,9 +34,6 @@ molecularWeightAr = 39.948
 
 molecularWeight = molecularWeightH2 * initialMoleFractionH2 + molecularWeightN2 * initialMoleFractionN2 + molecularWeightNH3 * initialMoleFractionNH3 + molecularWeightAr * initialMoleFractionAr # g/mol
 
-
-# Q = m * Cp * deltaT
-
 # Calculate the heat capacity of each component of the system
 temp = T1
 
