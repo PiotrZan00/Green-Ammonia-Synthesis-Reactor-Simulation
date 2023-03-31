@@ -1,17 +1,13 @@
 # =========================================================================================================== #
 # - Author :     Piotr T. Zaniewicz                                                                           #
-# - Date   :     02/03/2023                                                                                   #
-#                                                                                                             #
-# - Description: - This script is used to optimise the length of a reactor to maximise the conversion         #
-#                  of N2 to NH3 across a packed bed reactor.                                                  #
+# - Date   :     09/03/2023                                                                                   #
+# - Description: - This script is used to model the conversion of N2 to NH3 across a packed bed reactor.      #
 #                - The script is used to generate the data for the ammonia synthesis reactor section of       #
 #                  the design project report.                                                                 #
 #                - The function main() is used to run the reactor simulation.                                 #
 #                - The function conversion_pressureR1() is used to generate the data for the conversion       #
-#                  of N2 to NH3 across both beds at varying pressures as defined in variable pressurelist()   #
-#                                                                                                             #
+#                  of N2 to NH3 across both beds at varying pressures as defined in list var. pressurelist()  #
 # =========================================================================================================== #
-#                                                                                                             #
 # =====================================   I N F O R M A T I O N   =========================================== #
 # - This program calculates the conversion of N2 to NH3 across a packed bed reactor.                          #
 # - The program uses the following assumptions:                                                               #
