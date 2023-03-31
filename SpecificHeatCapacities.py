@@ -1,16 +1,23 @@
-# Plot Heat Capacities of components of the system
-
+# =========================================================================================================== #
+# - Author :     Piotr T. Zaniewicz                                                                           #
+# - Date   :     12/03/2023                                                                                   #
+# - Description: - Plot Heat Capacities of components of the system                                           #
+# =========================================================================================================== #
+# ------------------------------------------- import libraries ---------------------------------------------- #
 import numpy as np
 import matplotlib.pyplot as plt
-
-
+# ----------------------------------------------------------------------------------------------------------- #
 # composition
 initialMoleFractionH2 = 0.714089
 initialMoleFractionN2 = 0.238253
 initialMoleFractionNH3 = 0.0213228
 initialMoleFractionAr = 0.0262431
 
-# temperature range
+molecularWeightH2 = 2.016
+molecularWeightN2 = 28.0134
+molecularWeightNH3 = 17.0305
+molecularWeightAr = 39.948
+
 pressure = 225  #atm
 T1 = int(input("Enter a starting temperature (501 - 900K): "))
 T2 = int(input("Enter an ending temperature (501 - 900K): "))
@@ -21,24 +28,16 @@ CpAr = []
 CpNH3 = []
 Cp = []
 temperature = []
-
 yH2 = initialMoleFractionH2
 yN2 = initialMoleFractionN2
 yNH3 = initialMoleFractionNH3
 yAr = initialMoleFractionAr
 
-molecularWeightH2 = 2.016
-molecularWeightN2 = 28.0134
-molecularWeightNH3 = 17.0305
-molecularWeightAr = 39.948
-
 molecularWeight = molecularWeightH2 * initialMoleFractionH2 + molecularWeightN2 * initialMoleFractionN2 + molecularWeightNH3 * initialMoleFractionNH3 + molecularWeightAr * initialMoleFractionAr # g/mol
 
 # Calculate the heat capacity of each component of the system
 temp = T1
-
 while temp <= T2 :
-
     HeatCapacityH2 = (
         #                 # specific_heat_hydrogen * yH2
         (
@@ -50,8 +49,6 @@ while temp <= T2 :
                 - 2.079e-10 * temp**3
             )
         ))
-
-
     HeatCapacityN2 = (
         #        # + specific_heat_nitrogen * yN2
         + (
@@ -63,15 +60,11 @@ while temp <= T2 :
                 - 6.861e-10 * temp**3
             )
         ))
-
-
     HeatCapacityAr = (
         #        # + specific_heat_argon * yAr
             + (4.9675
                 ) * 4.184
         )
-
-
     HeatCapacityNH3 = (
         # + specific_heat_ammonia * yNH3
         + (4.184 *
