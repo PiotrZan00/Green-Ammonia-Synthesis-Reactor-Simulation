@@ -20,7 +20,7 @@
 # - The script will also print to console the:     - optimal inlet temperature                                #       
 #                                                  - resulting final conversion                               #
 #                                                  - & resultant end mole composition                         #
-# - The value of 3.15m is the bed length of bed 1 in the design project report                                #
+# - The value of 2.10m is the bed length of bed 1 in the design project report                                #
 # =========================================================================================================== #
 # =========================================================================================================== #
 # ==================================   I N P U T   V A R I A B L E S   ====================================== #
