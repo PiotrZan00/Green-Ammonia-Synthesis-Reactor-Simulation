@@ -1,7 +1,6 @@
-# Purpose: Calculate the pressure drop across a packed bed
-
 # Author:  Piotr T. Zaniewicz
 # Date:    08/03/2023
+# Purpose: Calculate the pressure drop across a packed catalyst bed
 
 # Imported libraries
 import numpy as np
@@ -14,7 +13,7 @@ from prettytable import PrettyTable
 # =========================================================================================================== #
 # Input data
 dp = 0.010                                              # m         # diameter of catalyst particles        
-d = 0.55                                                # m         # diameter of the bed                   
+d = 0.55                                                # m         # diameter of the bed                   #
 
 rho_1 = 34.60914526                                     # kg/m3     # density fluid                         # FROM ASPEN (avg. feed and product)
 rho_2 = 36.38491739                                     # kg/m3     # density fluid                         # FROM ASPEN (avg. feed and product)
@@ -24,7 +23,6 @@ mu_2 = 0.0000299                                        # Pa.s      # viscosity 
 feed_1_flowrate = 4558.503765                           # L/min     # flowrate of feed 1
 feed_1_flowrate_m3 = feed_1_flowrate/1000/60            # m3/s      # flowrate of feed 1
 vs_1 = feed_1_flowrate_m3 / ((np.pi / 4) * d**2)        # m/s       # superficial velocity
-
 
 feed_2_flowrate = 4414.515726                           # L/min     # flowrate of feed 2
 feed_2_flowrate_m3 = feed_2_flowrate/1000/60            # m3/s      # flowrate of feed 2
@@ -71,12 +69,11 @@ while L1 >= L_1+dL_step:
 # Ergun equation - BED 1
     dPdL_1__laminarPerLength.append((150 * ( ((1 - voidage)**2) / (voidage**3) ) * ( (mu_1 * vs_1) / dp**2) ))            # Pa/m          # Laminar flow term pressure drop per unit length in bed 1
     dPdL_1__turbulentPerLength.append((1.75 * (rho_1 * vs_1**2 / dp) * (((1 - voidage)**2) / (voidage**3)) ))             # Pa/m          # Turbulent flow term pressure drop per unit length in bed 1
-    dPdL_1__TotalPerLength.append(dPdL_1__laminarPerLength[-1] + dPdL_1__turbulentPerLength[-1])                                  # Pa/m          # Total pressure drop per unit length in bed 1
+    dPdL_1__TotalPerLength.append(dPdL_1__laminarPerLength[-1] + dPdL_1__turbulentPerLength[-1])                          # Pa/m          # Total pressure drop per unit length in bed 1
 
-    dPdL_1__laminarTotal.append(dPdL_1__laminarPerLength[-1] * L_1)                                                           # Pa            # Total pressure drop bed 1 from laminar flow term
-    dPdL_1__turbulentTotal.append(dPdL_1__turbulentPerLength[-1] * L_1)                                                       # Pa            # Total pressure drop bed 1 from turbulent flow term
-    dPdL_1__Total.append((dPdL_1__laminarPerLength[-1] + dPdL_1__turbulentPerLength[-1]) * L_1)                                                                 # Pa            # Total pressure drop bed 1
-
+    dPdL_1__laminarTotal.append(dPdL_1__laminarPerLength[-1] * L_1)                                                       # Pa            # Total pressure drop bed 1 from laminar flow term
+    dPdL_1__turbulentTotal.append(dPdL_1__turbulentPerLength[-1] * L_1)                                                   # Pa            # Total pressure drop bed 1 from turbulent flow term
+    dPdL_1__Total.append((dPdL_1__laminarPerLength[-1] + dPdL_1__turbulentPerLength[-1]) * L_1)                           # Pa            # Total pressure drop bed 1
     pressureDropBed1.append(dPdL_1__Total)
 
 # Create a loop to calculate the pressure drop across bed 1
@@ -95,54 +92,42 @@ while L2 >= L_2+dL_step:
     
     pressureDropBed2.append(dPdL_2__Total)
 
-
-
 # Print results
 print('==================================================================================================================================')
 print('==================================================================================================================================')
-
 print('The (per m length) pressure drop in bed 1 corresponding to the:')
 print('                                                                 laminar flow term       =  ',round(dPdL_1__laminarPerLength[-1], ),' Pa/m', '    or    ', round(dPdL_1__laminarPerLength[-1]/1e5, 3),'bar/m')
 print('                                                                 turbulent flow term     =  ',round(dPdL_1__turbulentPerLength[-1], ),'Pa/m', '   or    ', round(dPdL_1__turbulentPerLength[-1]/1e5, 3),'bar/m')
 print('                                                                 TOTAL                   =  ',round(dPdL_1__TotalPerLength[-1],),'Pa/m', '   or    ', round(dPdL_1__TotalPerLength[-1]/1e5, 3),'bar/m')
-
 print('----------------------------------------------------------------------------------------------------------------------------------')
 print('The (total) pressure drop in bed 1 corresponding to the :')
 print('                                                                 laminar flow term       =  ',round(dPdL_1__laminarTotal[-1], ),' Pa', '     or    ', round(dPdL_1__laminarTotal[-1]/1e5, 3),'bar')
 print('                                                                 turbulent flow term     =  ',round(dPdL_1__turbulentTotal[-1], ),'Pa', '     or    ', round(dPdL_1__turbulentTotal[-1]/1e5, 3),'bar')
 print('                                                                 TOTAL                   =  ',round(dPdL_1__Total[-1], ),'Pa', '     or    ', round(dPdL_1__Total[-1]/1e5, 3),'bar')
-
 if dPdL_1__laminarPerLength > dPdL_1__turbulentPerLength:
     dPdL_1 = dPdL_1__laminarPerLength
     print('_____ THEREFORE THE FLOW IS LAMINAR _____')
 else:
     dPdL_1 = dPdL_1__turbulentPerLength
     print('_____ THEREFORE THE FLOW IS TURBULENT _____')
-
 print('==================================================================================================================================')
-
 print('The (per m length) pressure drop in bed 2 corresponding to the:')
 print('                                                                 laminar flow term       =  ',round(dPdL_2__laminarPerLength[-1],),'  Pa/m', '   or    ', round(dPdL_2__laminarPerLength[-1]/1e5, 3),'bar/m')
 print('                                                                 turbulent flow term     =  ',round(dPdL_2__turbulentPerLength[-1],),'Pa/m', '   or    ', round(dPdL_2__turbulentPerLength[-1]/1e5, 3),'bar/m')
 print('                                                                 TOTAL                   =  ',round(dPdL_2__TotalPerLength[-1], ),'Pa/m', '   or    ', round(dPdL_2__TotalPerLength[-1]/1e5, 3),'bar/m')
-
 print('----------------------------------------------------------------------------------------------------------------------------------')
-
 print('The (total) pressure drop in bed 2 corresponding to the :')
 print('                                                                 laminar flow term       =  ',round(dPdL_2__laminarTotal[-1], ),'  Pa', '    or    ', round(dPdL_2__laminarTotal[-1]/1e5, 3),'bar')
 print('                                                                 turbulent flow term     =  ',round(dPdL_2__turbulentTotal[-1], ),'Pa', '    or    ', round(dPdL_2__turbulentTotal[-1]/1e5, 3),'bar')
 print('                                                                 TOTAL                   =  ',round(dPdL_2__Total[-1], ),'Pa', '    or    ', round(dPdL_2__Total[-1]/1e5, 3),'bar')
-
 if dPdL_2__laminarPerLength > dPdL_2__turbulentPerLength:
     dPdL_2 = dPdL_2__laminarPerLength
     print('_____ THEREFORE THE FLOW IS LAMINAR _____')
 else:
     dPdL_2 = dPdL_2__turbulentPerLength
     print('_____ THEREFORE THE FLOW IS TURBULENT _____')
-    
 print('==================================================================================================================================')
 print('==================================================================================================================================')
-
 
 # Plot results
 plt.figure(3)
@@ -168,8 +153,6 @@ plt.ylim(0, )
 plt.xlim(0, )
 plt.legend()
 plt.grid()
-
-
 
 # plot table of printed results in console
 table = PrettyTable()
