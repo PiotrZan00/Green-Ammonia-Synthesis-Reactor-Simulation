@@ -1,45 +1,30 @@
 # =========================================================================================================== #
 # - Author :     Piotr T. Zaniewicz                                                                           #
-# - Date   :     03/03/2023                                                                                   #
-#                                                                                                             #                    
+# - Date   :     31/03/2023                                                                                   #
 # - Description: - This script is used to optimise the inlet temperature of a reactor to maximise the         #
 #                  conversion of N2 to NH3.                                                                   #
 #                - The script is used to generate the data for the ammonia synthesis reactor section of       #
 #                  the design project report.                                                                 #
 # =========================================================================================================== #
-#                                                                                                             #
-# --------------------------------------   I N S T R U C T I O N S   ---------------------------------------- #
-#                                                                                                             #
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
 # - The script needs to be repeated iteratively simultaneously with Aspen to find the resultant               #
 #   steady-state stream compositions and resultant operating conditions                                       #
 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!#
-#                                                                                                             #
-# - Input temp should not exceed 755K as this will cause the equilibrium constant to be negative              #
-#   and the results are not valid for negative equilibrium constants                                          #
-#                                                                                                             #
+# --------------------------------------   I N S T R U C T I O N S   ---------------------------------------- #
+# - Input temp should not exceed APPROX 755K                                                                  #
 # - Value for BedLengthcalc is the bed length of the reactor in the design project report                     #
-#                                                                                                             #
-# - You should adjust thus value to match the bed length of the reactor you are using                         #
-# which was determined in the ReactorConversionAcrossBed_2.py script                                          #
-#                                                                                                             #
-# - The input mole fractions in this script should be updated to the composition of the output mole           #
-#   composition from script ReactorInputTempConversionOptimisation_1.py                                       #
-#                                                                                                             #
+# - You should adjust this value to match the bed length of the reactor you are using                         #
+#   determined in the reactorSim.py script                                                                    #
 # - Running the script will calculate the optimal inlet temperature for the reactor                           #
 #   to maximise the conversion of N2 to NH3.                                                                  #
-#                                                                                                             #
 # - The script will also plot the final conversion at each inlet temperature in the range specified           #
-#   in the PlotTempRange variable.                                                                            # 
-#                                                                                                             #
+#   in the PlotTempRange variable.                                                                            #
 # - A second plot will be generated showing the final mole composition of the reactor at each inlet           #
 #   temperature in the range specified in the PlotTempRange variable.                                         #
-#                                                                                                             #
-# - The script will also print the:     - optimal inlet temperature                                           #       
-#                                       - resulting final conversion                                          #
-#                                       - & resultant end mole composition                                    #
-#   to the console.                                                                                           #
-#                                                                                                             #
+# - The script will also print to console the:     - optimal inlet temperature                                #
+#                                                  - resulting final conversion                               #
+#                                                  - & resultant end mole composition                         #
+# - The value of 5.35m is the bed length of bed 2 in the design project report                                #
 # =========================================================================================================== #
 # =========================================================================================================== #
 # ==================================   I N P U T   V A R I A B L E S   ====================================== #
